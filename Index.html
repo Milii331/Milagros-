@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milagros Calderón · Ingeniería Electrónica · IA · Espacio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --purple:     #6B4FA0;
+  --purple-mid: #9B7BC8;
+  --purple-lt:  #C4ADEF;
+  --lavender:   #EDE5F7;
+  --rose:       #F7E8F0;
+  --ink:        #1A1228;
+  --ink-60:     #6B5F7A;
+  --ink-40:     #9E94AA;
+  --surface:    #FDFBFF;
+  --white:      #FFFFFF;
+  --border:     rgba(107,79,160,0.12);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  background: rgba(253,251,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 4rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: baseline; gap: 0.35rem;
+  text-decoration: none;
+}
+.nav-logo-mili {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.75rem; font-weight: 400;
+  color: var(--purple); line-height: 1;
+  letter-spacing: 0.01em;
+}
+.nav-logo-last {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-weight: 300;
+  color: var(--ink-40); letter-spacing: 0.18em;
+  text-transform: uppercase; padding-bottom: 0.1rem;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-60); text-decoration: none;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--purple); }
+.nav-cta {
+  background: var(--purple); color: white !important;
+  padding: 0.45rem 1.2rem; border-radius: 40px;
+}
+.nav-cta:hover { background: #5a3d8a; color: white !important; }
+
+/* ═══════════════════════════════════════
+   HERO — magazine cover
+═══════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  padding: 100px 4rem 6rem;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+#hero-stars-canvas {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+.hero-bg-shape {
+  position: absolute;
+  top: -120px; right: -180px;
+  width: 680px; height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #EDE5F7 0%, #F7E8F0 45%, transparent 70%);
+  pointer-events: none;
+}
+.hero-left { position: relative; z-index: 1; }
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--purple);
+  margin-bottom: 2rem;
+}
+.hero-kicker::before {
+  content: ''; display: block;
+  width: 28px; height: 1.5px;
+  background: var(--purple);
+}
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.4rem, 5.5vw, 5.2rem);
+  font-weight: 700; line-height: 1.04;
+  color: var(--ink);
+  margin-bottom: 1.8rem;
+}
+.hero-h1 .italic { font-style: italic; color: var(--purple); }
+.hero-lead {
+  font-size: 1.1rem; line-height: 1.85;
+  color: var(--ink-60); max-width: 520px;
+  margin-bottom: 2.5rem; font-weight: 300;
+}
+.hero-lead strong { color: var(--ink); font-weight: 500; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-a {
+  display: inline-block;
+  background: var(--purple); color: white;
+  padding: 0.85rem 2rem; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background 0.25s, transform 0.2s;
+}
+.btn-a:hover { background: #5a3d8a; transform: translateY(-1px); }
+.btn-b {
+  display: inline-block;
+  background: transparent; color: var(--purple);
+  padding: 0.85rem 2rem; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none;
+  border: 1.5px solid var(--purple-lt);
+  transition: border-color 0.25s, background 0.25s;
+}
+.btn-b:hover { background: var(--lavender); border-color: var(--purple); }
+
+.hero-left { position: relative; z-index: 1; }
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.hero-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem 1.8rem;
+  transition: box-shadow 0.25s;
+}
+.hero-stat-card:hover { box-shadow: 0 8px 30px rgba(107,79,160,0.1); }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--purple); line-height: 1;
+  margin-bottom: 0.2rem;
+}
+.stat-label {
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.08em; color: var(--ink-60);
+  text-transform: uppercase;
+}
+.hero-quote-card {
+  background: var(--lavender);
+  border-radius: 18px;
+  padding: 1.8rem;
+}
+.hero-quote-card blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-style: italic;
+  color: var(--purple); line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════
+   SECTION SHELL
+═══════════════════════════════════════ */
+.section { padding: 7rem 4rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.sec-kicker {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--purple);
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+.sec-kicker::before {
+  content: ''; display: block; width: 22px; height: 1.5px; background: var(--purple);
+}
+.sec-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--ink); margin-bottom: 1rem;
+}
+.sec-intro {
+  font-size: 1rem; line-height: 1.85;
+  color: var(--ink-60); max-width: 680px;
+  font-weight: 300; margin-bottom: 3.5rem;
+}
+
+/* ═══════════════════════════════════════
+   STORY — narrative timeline
+═══════════════════════════════════════ */
+#story { background: var(--white); }
+.story-body {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 0 3rem;
+  position: relative;
+}
+.story-line {
+  grid-column: 2;
+  background: linear-gradient(180deg, var(--purple-lt), var(--lavender));
+  border-radius: 2px;
+  position: relative;
+}
+.story-block {
+  padding: 0 0 3.5rem 0;
+  position: relative;
+}
+.story-block.left { text-align: right; }
+.story-block.right { padding-top: 4rem; }
+.story-dot {
+  position: absolute; top: 0.3rem;
+  width: 10px; height: 10px;
+  background: var(--purple); border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 3px var(--purple-lt);
+}
+.story-block.left .story-dot { right: -4.55rem; }
+.story-block.right .story-dot { left: -4.55rem; }
+.story-year {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--purple-mid);
+  margin-bottom: 0.4rem;
+}
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 500; color: var(--ink);
+  margin-bottom: 0.5rem; line-height: 1.3;
+}
+.story-text {
+  font-size: 0.9rem; line-height: 1.75; color: var(--ink-60); font-weight: 300;
+}
+
+/* ═══════════════════════════════════════
+   EXPERTISE GRID
+═══════════════════════════════════════ */
+#expertise { background: var(--surface); }
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.exp-cell {
+  background: var(--white);
+  padding: 2.2rem 2rem;
+  border: 1.5px solid var(--border);
+  transition: background 0.25s;
+  cursor: default;
+}
+.exp-cell:hover { background: var(--lavender); }
+.exp-cell-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+.exp-cell-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 500;
+  color: var(--ink); margin-bottom: 0.6rem;
+}
+.exp-cell-desc {
+  font-size: 0.83rem; line-height: 1.7; color: var(--ink-60); font-weight: 300;
+}
+.tech-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.9rem; }
+.tech-tag {
+  font-size: 0.67rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--lavender); color: var(--purple);
+  padding: 0.2rem 0.6rem; border-radius: 20px;
+}
+
+/* ═══════════════════════════════════════
+   PROJECTS — technical deep dives
+═══════════════════════════════════════ */
+#projects { background: var(--white); }
+.project-list { display: flex; flex-direction: column; gap: 2px; }
+
+.project-item {
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.25s;
+  background: var(--white);
+}
+.project-item:hover { border-color: var(--purple-lt); }
+.project-item.open { border-color: var(--purple); }
+
+.project-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.8rem 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+.project-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-style: italic;
+  color: var(--purple-lt); font-weight: 400;
+  min-width: 2.2rem;
+}
+.project-meta {}
+.project-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 500;
+  color: var(--ink); margin-bottom: 0.3rem;
+}
+.project-subtitle {
+  font-size: 0.82rem; color: var(--ink-40); font-weight: 400;
+  letter-spacing: 0.05em;
+}
+.project-toggle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--lavender);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--purple);
+  transition: background 0.25s, transform 0.35s;
+  flex-shrink: 0;
+}
+.project-item.open .project-toggle {
+  background: var(--purple); color: white; transform: rotate(45deg);
+}
+
+.project-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  border-top: 0px solid var(--border);
+}
+.project-item.open .project-body {
+  max-height: 1200px;
+  border-top-width: 1px;
+}
+.project-body-inner {
+  padding: 2rem 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 3rem;
+}
+
+.project-description {
+  font-size: 0.92rem; line-height: 1.85; color: var(--ink-60);
+  font-weight: 300; margin-bottom: 1.5rem;
+}
+.project-description p { margin-bottom: 0.9rem; }
+.project-description strong { color: var(--ink); font-weight: 500; }
+
+.proj-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--purple);
+  text-decoration: none;
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid var(--purple-lt);
+  border-radius: 30px;
+  transition: background 0.25s, border-color 0.25s;
+}
+.proj-link:hover { background: var(--lavender); border-color: var(--purple); }
+
+.project-tech-panel {}
+.tech-panel-title {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-40);
+  margin-bottom: 1rem;
+}
+.tech-stack-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.tech-stack-list li {
+  display: flex; align-items: baseline; gap: 0.7rem;
+  font-size: 0.85rem; color: var(--ink-60);
+}
+.tech-stack-list li::before {
+  content: '▸';
+  color: var(--purple); font-size: 0.6rem; flex-shrink: 0;
+}
+.tech-stack-list li strong { color: var(--ink); font-weight: 500; }
+
+.result-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+.result-pill {
+  font-size: 0.72rem; font-weight: 500;
+  background: #F0EAF9; color: var(--purple);
+  padding: 0.3rem 0.9rem; border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+/* ═══════════════════════════════════════
+   AWARDS — editorial list
+═══════════════════════════════════════ */
+#awards { background: var(--surface); }
+.awards-table { width: 100%; border-collapse: collapse; }
+.awards-table tr { border-bottom: 1px solid var(--border); }
+.awards-table tr:first-child { border-top: 1px solid var(--border); }
+.awards-table tr:hover td { background: var(--lavender); }
+.awards-table td {
+  padding: 1.4rem 0.5rem;
+  font-size: 0.88rem; color: var(--ink-60);
+  vertical-align: middle;
+  transition: background 0.2s;
+}
+.awards-table td:first-child { width: 80px; }
+.td-medal { font-size: 1.4rem; }
+.td-year {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+  color: var(--purple-mid); text-transform: uppercase; width: 80px;
+}
+.td-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 500; color: var(--ink);
+}
+.td-sub {
+  font-size: 0.8rem; color: var(--ink-40); margin-top: 0.15rem;
+}
+.td-tag {
+  text-align: right;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--purple-mid);
+  white-space: nowrap; padding-right: 0;
+}
+.awards-table tr.clickable { cursor: pointer; }
+
+/* ═══════════════════════════════════════
+   LANGUAGES
+═══════════════════════════════════════ */
+#languages {
+  background: var(--ink);
+  padding: 7rem 4rem;
+}
+#languages .sec-kicker { color: var(--purple-lt); }
+#languages .sec-kicker::before { background: var(--purple-lt); }
+#languages .sec-h2 { color: var(--white); }
+#languages .sec-intro { color: rgba(255,255,255,0.5); }
+
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+.lang-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  transition: border-color 0.25s, background 0.25s;
+}
+.lang-card:hover {
+  background: rgba(107,79,160,0.2);
+  border-color: var(--purple-lt);
+}
+.lang-flag { font-size: 2.4rem; margin-bottom: 1rem; }
+.lang-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: white; margin-bottom: 0.2rem;
+}
+.lang-level {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--purple-lt); margin-bottom: 0.8rem;
+}
+.lang-note { font-size: 0.83rem; color: rgba(255,255,255,0.45); line-height: 1.6; font-style: italic; }
+.lang-bar-wrap { height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 1.2rem; }
+.lang-bar { height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--purple), var(--purple-lt)); }
+
+/* ═══════════════════════════════════════
+   CONSTELLA FEATURE
+═══════════════════════════════════════ */
+#constella {
+  background: var(--white);
+  padding: 0;
+}
+.constella-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 560px;
+}
+.constella-left {
+  background: var(--ink);
+  padding: 6rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.constella-stars {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.constella-left .sec-kicker { color: var(--purple-lt); position: relative; z-index: 1; }
+.constella-left .sec-kicker::before { background: var(--purple-lt); }
+.constella-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-weight: 700; color: white;
+  line-height: 1.1; margin-bottom: 1.2rem;
+  position: relative; z-index: 1;
+}
+.constella-subtitle {
+  font-size: 0.9rem; color: rgba(255,255,255,0.55);
+  line-height: 1.75; font-weight: 300; margin-bottom: 2rem;
+  position: relative; z-index: 1; max-width: 380px;
+}
+.btn-constella {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+  color: white;
+  padding: 0.9rem 2rem; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none;
+  position: relative; z-index: 1;
+  transition: transform 0.25s, box-shadow 0.25s;
+  align-self: flex-start;
+  box-shadow: 0 6px 24px rgba(107,79,160,0.35);
+}
+.btn-constella:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(107,79,160,0.55); }
+
+.constella-right {
+  background: var(--lavender);
+  padding: 5rem 3.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.constella-right h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 500; color: var(--purple);
+  margin-bottom: 1.5rem; letter-spacing: 0.04em;
+}
+.arch-item {
+  display: flex; gap: 1rem;
+  margin-bottom: 1.5rem; align-items: flex-start;
+}
+.arch-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--purple); flex-shrink: 0; margin-top: 0.45rem;
+}
+.arch-label {
+  font-size: 0.82rem; font-weight: 600; color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+.arch-desc { font-size: 0.8rem; color: var(--ink-60); line-height: 1.6; font-weight: 300; }
+
+.constella-variants {
+  display: flex; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap;
+}
+.variant-pill {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+  padding: 0.4rem 1rem; border-radius: 20px;
+  background: rgba(107,79,160,0.12); color: var(--purple);
+  border: 1px solid var(--purple-lt);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  background: var(--ink);
+  padding: 5rem 4rem 3rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 4rem; margin-bottom: 4rem;
+}
+.footer-brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; color: white; font-weight: 400;
+  margin-bottom: 0.7rem;
+}
+.footer-brand-desc {
+  font-size: 0.85rem; color: rgba(255,255,255,0.4);
+  line-height: 1.7; font-weight: 300;
+}
+.footer-col-title {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--purple-lt);
+  margin-bottom: 1.2rem;
+}
+.footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col-links a {
+  font-size: 0.85rem; color: rgba(255,255,255,0.4);
+  text-decoration: none; transition: color 0.2s;
+  font-weight: 300;
+}
+.footer-col-links a:hover { color: white; }
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy {
+  font-size: 0.78rem; color: rgba(255,255,255,0.25); font-weight: 300;
+}
+.footer-location {
+  font-size: 0.75rem; color: rgba(255,255,255,0.25);
+}
+
+/* ═══════════════════════════════════════
+   MODAL
+═══════════════════════════════════════ */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(26,18,40,0.65);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: white; border-radius: 24px;
+  max-width: 580px; width: 100%;
+  padding: 3rem;
+  transform: translateY(16px);
+  transition: transform 0.35s;
+  max-height: 85vh; overflow-y: auto;
+  position: relative;
+}
+.modal-backdrop.open .modal-box { transform: translateY(0); }
+.modal-close-btn {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  background: var(--lavender); border: none;
+  width: 36px; height: 36px; border-radius: 50%;
+  cursor: pointer; font-size: 1rem; color: var(--purple);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close-btn:hover { background: var(--purple-lt); }
+.modal-kicker {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--purple); margin-bottom: 0.5rem;
+}
+.modal-h { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 1.2rem; line-height: 1.3; }
+.modal-content { font-size: 0.9rem; line-height: 1.85; color: var(--ink-60); font-weight: 300; }
+.modal-content p { margin-bottom: 0.9rem; }
+.modal-content strong { color: var(--ink); font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; padding: 100px 1.5rem 4rem; }
+  .hero-right { display: none; }
+  .section { padding: 5rem 1.5rem; }
+  .story-body { grid-template-columns: 1fr; }
+  .story-line { display: none; }
+  .story-block.left { text-align: left; }
+  .story-block.right { padding-top: 0; }
+  .story-block .story-dot { display: none; }
+  .exp-grid { grid-template-columns: 1fr 1fr; }
+  .project-body-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .constella-split { grid-template-columns: 1fr; }
+  .constella-left { padding: 4rem 1.5rem; }
+  .constella-right { padding: 3rem 1.5rem; }
+  .lang-grid { grid-template-columns: 1fr 1fr !important; }
+  #languages { padding: 5rem 1.5rem; }
+  footer { padding: 4rem 1.5rem 2rem; }
+  .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .awards-table .td-tag { display: none; }
+}
+@media (max-width: 600px) {
+  .exp-grid { grid-template-columns: 1fr; }
+  .lang-grid { grid-template-columns: 1fr !important; }
+  .hero-h1 { font-size: 2.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── KAWAII FLOATING EMOJIS ── */
+.kawaii-float {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  animation: kawaii-drift linear infinite;
+  z-index: 0;
+  font-style: normal;
+}
+@keyframes kawaii-drift {
+  0%   { transform: translateY(0px) rotate(0deg) scale(1);   opacity: 0; }
+  8%   { opacity: 1; }
+  45%  { transform: translateY(-38vh) rotate(18deg) scale(1.08); opacity: 0.9; }
+  92%  { opacity: 0.6; }
+  100% { transform: translateY(-82vh) rotate(-12deg) scale(0.85); opacity: 0; }
+}
+@keyframes kawaii-sway {
+  0%, 100% { margin-left: 0; }
+  25%  { margin-left: 14px; }
+  75%  { margin-left: -14px; }
+}
+.kawaii-float { animation: kawaii-drift linear infinite, kawaii-sway ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-logo"><span class="nav-logo-mili">Mili</span><span class="nav-logo-last">Calderón</span></a>
+  <ul class="nav-links">
+    <li><a href="#story">Historia</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#awards">Logros</a></li>
+    <li><a href="#languages">Idiomas</a></li>
+    <li><a href="#contact" class="nav-cta">Contacto ✦</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <canvas id="hero-stars-canvas"></canvas>
+  <div id="kawaii-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="hero-bg-shape"></div>
+  <div class="hero-left">
+    <div class="hero-kicker">Ingeniería · IA · Cosmos</div>
+    <h1 class="hero-h1">
+      Donde la<br>
+      electrónica<br>
+      <span class="italic">encuentra las estrellas.</span>
+    </h1>
+    <p class="hero-lead">
+      Soy <strong>María de los Milagros Calderón</strong>, ingeniera electrónica en formación, investigadora, educadora y constructora de sistemas que importan. Nací en Paraná, Argentina, y elegí como terreno de juego la intersección entre el hardware, la inteligencia artificial y el espacio.
+    </p>
+    <div class="hero-actions">
+      <a href="#story" class="btn-a">Leer mi historia</a>
+      <a href="#projects" class="btn-b">Ver proyectos técnicos</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-card reveal reveal-delay-1">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Premios internacionales en innovación y tecnología</div>
+    </div>
+    <div class="hero-stat-card reveal reveal-delay-2">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Idiomas · Español · Inglés · Portugués · Ruso</div>
+    </div>
+    <div class="hero-stat-card reveal reveal-delay-3">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Congresos internacionales presentados en 2025–2026</div>
+    </div>
+    <div class="hero-quote-card reveal">
+      <blockquote>"El conocimiento más poderoso nace en los bordes entre mundos."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STORY ══ -->
+<section id="story" class="section">
+  <div class="section-inner">
+    <div class="sec-kicker reveal">Mi trayectoria</div>
+    <h2 class="sec-h2 reveal">Una historia de<br><em style="font-style:italic; color:var(--purple);">curiosidad incansable</em></h2>
+    <p class="sec-intro reveal">
+      No elegí la ingeniería porque fuera el camino más seguro. La elegí porque quería entender cómo funciona el mundo — y luego cambiarlo. Lo que siguió fue un recorrido entre laboratorios, hackathones, congresos latinoamericanos y constelaciones de satélites.
+    </p>
+
+    <div class="story-body">
+      <div class="story-block left reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">El inicio</div>
+        <div class="story-title">La pregunta que lo cambió todo</div>
+        <div class="story-text">Desde pequeña me pregunté qué había dentro de los aparatos. No como curiosidad pasajera: como una obsesión que me llevó a desarmar, construir y preguntar sin parar. La Ingeniería Electrónica en UTN Paraná no fue solo una carrera — fue el lenguaje que buscaba.</div>
+      </div>
+      <div class="story-line"></div>
+      <div class="story-block right reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">Primeros pasos</div>
+        <div class="story-title">De los circuitos a la IA</div>
+        <div class="story-text">Mientras avanzaba en materias como Análisis de Señales y Sistemas y Física, descubrí que el hardware solo era la mitad de la historia. La inteligencia artificial me abrió una dimensión nueva: sistemas que no solo obedecen, sino que aprenden. Empecé a combinar ambos mundos de manera natural.</div>
+      </div>
+
+      <div class="story-block left reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">2024</div>
+        <div class="story-title">El escenario latinoamericano</div>
+        <div class="story-text">El <strong>3.er lugar en el Rally Latinoamericano de Innovación 2024</strong> (categoría Impacto Social) me confirmó algo: las ideas construidas en Paraná podían competir a nivel continental. No era el final — era el comienzo de una serie de desafíos internacionales que se acelerarían en los años siguientes.</div>
+      </div>
+      <div class="story-line" style="display:none"></div>
+      <div class="story-block right reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">2025</div>
+        <div class="story-title">Congresos, premios y publicaciones</div>
+        <div class="story-text">El año más intenso hasta entonces. Primer lugar en el Rally Latinoamericano de Innovación 2025 en Chile. Ponencia en la V Convención Científica Internacional de Cuba. Publicación en ECIMED sobre Ciencia Abierta e IA en Salud. Talleres de robótica y IA para jóvenes. Y la confirmación de que educar era tan importante como investigar.</div>
+      </div>
+
+      <div class="story-block left reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">2026</div>
+        <div class="story-title">CONSTELLA y el espacio como frontera</div>
+        <div class="story-text">Construí <strong>CONSTELLA</strong> de manera independiente para el INNOVATÓN AI SPACE 2026: un sistema de planificación autónoma para constelaciones multi-satélite con IA, simulación orbital y gemelo digital. Al mismo tiempo, el II Congreso Latinoamericano de Neurociencias Cognitivas y la Distinción La Delfina marcaron un año de síntesis entre técnica, ciencia y comunidad.</div>
+      </div>
+      <div class="story-line" style="display:none"></div>
+      <div class="story-block left reveal">
+        <div class="story-dot"></div>
+        <div class="story-year">Siempre</div>
+        <div class="story-title">Educadora, mentora, constructora</div>
+        <div class="story-text">Paralelo a todo esto: clases particulares de matemáticas, física, inglés y portugués. Talleres de IA con Chicas Programadoras. Becaria académica en UTN para RStudio. Organización de la competencia regional de robótica. Enseñar no es lo que hago cuando no investigo — es parte indivisible de quien soy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERTISE ══ -->
+<section id="expertise" class="section">
+  <div class="section-inner">
+    <div class="sec-kicker reveal">Disciplinas</div>
+    <h2 class="sec-h2 reveal">Lo que <em style="font-style:italic; color:var(--purple);">construyo</em> y lo que <em style="font-style:italic; color:var(--purple);">sé</em></h2>
+    <p class="sec-intro reveal">Un perfil en T con raíces profundas en electrónica e IA, y ramas que se extienden hacia el espacio, la neurociencia y la educación.</p>
+    <div class="exp-grid reveal">
+      <div class="exp-cell">
+        <div class="exp-cell-icon">⚡</div>
+        <div class="exp-cell-title">Electrónica & Embebidos</div>
+        <div class="exp-cell-desc">Diseño de PCB, firmware, microcontroladores y sistemas en tiempo real.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">C / C++</span>
+          <span class="tech-tag">Arduino</span>
+          <span class="tech-tag">ESP32</span>
+          <span class="tech-tag">KiCAD</span>
+          <span class="tech-tag">RTOS</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">🧠</div>
+        <div class="exp-cell-title">Machine Learning & IA</div>
+        <div class="exp-cell-desc">Modelos predictivos, optimización y aprendizaje supervisado aplicado.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">scikit-learn</span>
+          <span class="tech-tag">XGBoost</span>
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">OR-Tools</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">🛰️</div>
+        <div class="exp-cell-title">Tecnología Espacial</div>
+        <div class="exp-cell-desc">Simulación orbital, planificación de misiones y arquitectura de digital twin.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Skyfield</span>
+          <span class="tech-tag">CP-SAT</span>
+          <span class="tech-tag">TLE</span>
+          <span class="tech-tag">Digital Twin</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">🔐</div>
+        <div class="exp-cell-title">Ciberseguridad</div>
+        <div class="exp-cell-desc">Seguridad cognitiva, IA defensiva, ingeniería social y análisis de sesgos.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Phishing cognitivo</span>
+          <span class="tech-tag">Model Armor</span>
+          <span class="tech-tag">OSINT</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">💻</div>
+        <div class="exp-cell-title">Desarrollo Full Stack</div>
+        <div class="exp-cell-desc">Aplicaciones web completas: backend robusto y frontend elegante.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">📊</div>
+        <div class="exp-cell-title">Big Data & Analytics</div>
+        <div class="exp-cell-desc">Procesamiento masivo de datos, pipelines y visualización analítica.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Hadoop</span>
+          <span class="tech-tag">Spark</span>
+          <span class="tech-tag">R / RStudio</span>
+          <span class="tech-tag">Pandas</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">📡</div>
+        <div class="exp-cell-title">Procesamiento de Señales</div>
+        <div class="exp-cell-desc">Variable compleja, sistemas LTI, convolución y transformadas para aplicaciones reales.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">MATLAB</span>
+          <span class="tech-tag">Transformada Z</span>
+          <span class="tech-tag">Fourier</span>
+          <span class="tech-tag">Laplace</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">🤖</div>
+        <div class="exp-cell-title">Robótica</div>
+        <div class="exp-cell-desc">Plataformas autónomas, integración sensorial y competencias internacionales.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">ROS</span>
+          <span class="tech-tag">Visión artificial</span>
+          <span class="tech-tag">Actuadores</span>
+          <span class="tech-tag">Control PID</span>
+        </div>
+      </div>
+      <div class="exp-cell">
+        <div class="exp-cell-icon">🎓</div>
+        <div class="exp-cell-title">Educación STEM</div>
+        <div class="exp-cell-desc">Docencia universitaria, tutorías y comunicación científica en tres idiomas.</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Matemáticas</span>
+          <span class="tech-tag">Física</span>
+          <span class="tech-tag">ML aplicado</span>
+          <span class="tech-tag">Idiomas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects" class="section">
+  <div class="section-inner">
+    <div class="sec-kicker reveal">Trabajo técnico</div>
+    <h2 class="sec-h2 reveal">Proyectos en<br><em style="font-style:italic; color:var(--purple);">profundidad</em></h2>
+    <p class="sec-intro reveal">Cada proyecto es una historia de decisiones técnicas reales, restricciones concretas y soluciones que funcionan.</p>
+
+    <div class="project-list">
+
+      <!-- CONSTELLA -->
+      <div class="project-item" id="proj-constella">
+        <div class="project-header" onclick="toggleProject('proj-constella')">
+          <div class="project-num">I</div>
+          <div class="project-meta">
+            <div class="project-name">CONSTELLA — Sistema de Planificación Satelital Autónomo</div>
+            <div class="project-subtitle">INNOVATÓN AI SPACE 2026 · Digital Twin · Optimización Combinatoria · Python</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div>
+              <div class="project-description">
+                <p><strong>El problema:</strong> coordinar una constelación de satélites no es programar una agenda — es resolver un problema de satisfacción de restricciones en un espacio de soluciones astronómico, donde cada satélite tiene ventanas de visibilidad, consumo energético limitado, prioridades de misión y dependencias temporales.</p>
+                <p><strong>La arquitectura:</strong> construí un <em>digital twin</em> de la constelación que corre en paralelo con el sistema real. Cada satélite tiene una réplica virtual que simula su estado orbital usando <strong>Skyfield</strong> con datos TLE actualizados. Sobre ese modelo vivo, un motor de planificación basado en <strong>OR-Tools CP-SAT</strong> (Google) resuelve el problema de optimización: qué satélite observa qué objetivo, cuándo, con qué modo de sensor y con qué prioridad, respetando todas las restricciones operacionales.</p>
+                <p><strong>La innovación técnica:</strong> el planificador no solo asigna tareas — aprende de ciclos anteriores para refinar sus estimaciones de disponibilidad y ajusta su modelo de restricciones dinámicamente. El resultado es un sistema que se comporta de manera autónoma ante cambios imprevistos en la constelación.</p>
+                <p>El proyecto evolucionó durante el hackathon en dos variantes aplicadas: <strong>CONSTELLA·MAR</strong> (monitoreo oceanográfico distribuido de alta frecuencia) y <strong>PLUMA</strong> (rastreo y cuantificación de emisiones de metano desde el espacio).</p>
+              </div>
+              <a href="https://constella-milagros-calder-n.vercel.app/" target="_blank" class="proj-link">
+                Demo interactiva ↗
+              </a>
+              <div class="result-pills">
+                <span class="result-pill">Participación independiente</span>
+                <span class="result-pill">3 variantes operacionales</span>
+                <span class="result-pill">Demo en producción (Vercel)</span>
+                <span class="result-pill">Hackathon 72hs</span>
+              </div>
+            </div>
+            <div class="project-tech-panel">
+              <div class="tech-panel-title">Stack técnico</div>
+              <ul class="tech-stack-list">
+                <li><strong>Python 3.11</strong> — lenguaje base del sistema</li>
+                <li><strong>OR-Tools CP-SAT</strong> — motor de optimización con restricciones (Google)</li>
+                <li><strong>Skyfield</strong> — simulación orbital de alta precisión con datos TLE</li>
+                <li><strong>Digital Twin</strong> — arquitectura de gemelo digital para estado satelital en tiempo real</li>
+                <li><strong>FastAPI</strong> — API REST para interfaz con el frontend</li>
+                <li><strong>React + Vercel</strong> — visualización interactiva desplegada en producción</li>
+                <li><strong>Numpy / Pandas</strong> — procesamiento de datos orbitales y telemetría</li>
+                <li><strong>Algoritmo de planificación adaptativa</strong> — refinamiento dinámico de restricciones</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALERTACUBA -->
+      <div class="project-item" id="proj-alerta">
+        <div class="project-header" onclick="toggleProject('proj-alerta')">
+          <div class="project-num">II</div>
+          <div class="project-meta">
+            <div class="project-name">AlertaCuba — Sistema Inteligente de Alerta Temprana</div>
+            <div class="project-subtitle">Hackaton Cuba 2026 · IoT · IA · SMS · Business Model Canvas</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div>
+              <div class="project-description">
+                <p><strong>El contexto:</strong> Cuba enfrenta vulnerabilidad crítica ante fenómenos meteorológicos extremos con infraestructura de comunicación limitada. La hipótesis fue simple pero exigente: ¿podemos construir un sistema de alerta temprana efectivo que funcione incluso sin conexión a internet?</p>
+                <p><strong>La solución técnica:</strong> una plataforma híbrida que combina <strong>sensores IoT</strong> distribuidos geográficamente para captura de datos ambientales (temperatura, humedad, presión, aceleración sísmica), un módulo de <strong>IA para detección de anomalías</strong> con modelos de clasificación en tiempo real, y un sistema de <strong>distribución de alertas por SMS</strong> que funciona independientemente del estado de la red de datos.</p>
+                <p><strong>La capa de IA:</strong> modelos de detección de anomalías entrenados con series temporales de datos meteorológicos históricos, capaces de distinguir patrones de riesgo real de ruido ambiental. El umbral de alerta es dinámico y se ajusta por zona geográfica y estación del año.</p>
+                <p>El proyecto incluye un <strong>Business Model Canvas</strong> completo que modela la viabilidad institucional, los actores clave (INSMET, Defensa Civil) y las fuentes de sostenibilidad del sistema en el contexto cubano.</p>
+              </div>
+              <div class="result-pills">
+                <span class="result-pill">Hackaton Cuba 2026</span>
+                <span class="result-pill">Arquitectura IoT + IA</span>
+                <span class="result-pill">SMS off-grid</span>
+                <span class="result-pill">Business Model Canvas</span>
+              </div>
+            </div>
+            <div class="project-tech-panel">
+              <div class="tech-panel-title">Stack técnico</div>
+              <ul class="tech-stack-list">
+                <li><strong>Arduino / ESP32</strong> — nodos de captura con sensores ambientales</li>
+                <li><strong>MQTT</strong> — protocolo de mensajería IoT ligero y tolerante a fallos</li>
+                <li><strong>Python + scikit-learn</strong> — modelo de detección de anomalías por series temporales</li>
+                <li><strong>Isolation Forest / LSTM</strong> — arquitecturas para anomalía en tiempo real</li>
+                <li><strong>SMS Gateway</strong> — distribución de alertas sin dependencia de datos</li>
+                <li><strong>Dashboard web</strong> — visualización de red de sensores y estado de alertas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NFL ML -->
+      <div class="project-item" id="proj-nfl">
+        <div class="project-header" onclick="toggleProject('proj-nfl')">
+          <div class="project-num">III</div>
+          <div class="project-meta">
+            <div class="project-name">Modelo Predictivo NFL Draft — Competencia Omnicampus</div>
+            <div class="project-subtitle">Machine Learning competitivo · Gradient Boosting · Feature Engineering · Top 64 de 3.000 participantes</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div>
+              <div class="project-description">
+                <p><strong>El desafío:</strong> predecir la ronda y posición en el NFL Draft a partir de estadísticas universitarias — un problema clásico de ML competitivo con alta varianza de señal y mucho ruido de selección humana.</p>
+                <p><strong>El proceso iterativo:</strong> empecé con modelos baseline (Logistic Regression, Random Forest) para entender la estructura de los datos. El salto vino con la ingeniería de features: ratios de rendimiento por posición, métricas de eficiencia contextual (ajustadas por calibre de oponente), y variables de momentum en la temporada final.</p>
+                <p><strong>El modelo final:</strong> un ensemble de <strong>XGBoost + LightGBM</strong> con stacking sobre un meta-learner de regresión logística. Hiperparametrización con Optuna (búsqueda bayesiana). Validación cruzada estratificada por posición para evitar data leakage posicional. El resultado fue escalar del puesto 130 al <strong>puesto 64 entre más de 3.000 participantes</strong> en el leaderboard de Omnicampus — top 2.1% global.</p>
+                <p>El proyecto también incluye análisis de feature importance por grupo de posición, revelando que las métricas que predicen éxito en un QB son estructuralmente distintas de las que predicen éxito en un WR.</p>
+              </div>
+              <div class="result-pills">
+                <span class="result-pill">Top 64 de 3.000 participantes</span>
+                <span class="result-pill">Top 2.1% global</span>
+                <span class="result-pill">XGBoost + LightGBM stack</span>
+                <span class="result-pill">+66 posiciones ganadas</span>
+              </div>
+            </div>
+            <div class="project-tech-panel">
+              <div class="tech-panel-title">Stack técnico</div>
+              <ul class="tech-stack-list">
+                <li><strong>XGBoost / LightGBM</strong> — modelos base del ensemble</li>
+                <li><strong>Optuna</strong> — hiperparametrización bayesiana</li>
+                <li><strong>Pandas / Numpy</strong> — feature engineering y transformaciones</li>
+                <li><strong>Scikit-learn</strong> — pipelines, stacking y validación cruzada</li>
+                <li><strong>SHAP</strong> — explicabilidad e importancia de features</li>
+                <li><strong>Matplotlib / Seaborn</strong> — análisis exploratorio visual</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEUROCIENCIA CIBERSEGURIDAD -->
+      <div class="project-item" id="proj-neuro">
+        <div class="project-header" onclick="toggleProject('proj-neuro')">
+          <div class="project-num">IV</div>
+          <div class="project-meta">
+            <div class="project-name">Sesgos Cognitivos en Phishing — II Congreso Latinoamericano de Neurociencias</div>
+            <div class="project-subtitle">Neurociencia aplicada · Ciberseguridad cognitiva · Investigación científica · 2026</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div>
+              <div class="project-description">
+                <p><strong>La hipótesis central:</strong> los ataques de phishing son efectivos no porque engañen a personas descuidadas — son efectivos porque explotan mecanismos cognitivos universales que el cerebro humano no puede simplemente "desactivar".</p>
+                <p><strong>El enfoque interdisciplinar:</strong> este trabajo cruzó la literatura de neurociencias cognitivas (modelos duales de procesamiento, teoría de la decisión bajo incertidumbre) con taxonomías actualizadas de ataques de ingeniería social. El resultado fue un mapa de correspondencias entre sesgos específicos (urgencia, autoridad, reciprocidad, escasez) y los vectores técnicos que los explotan.</p>
+                <p><strong>Implicaciones para defensa:</strong> la investigación propone que la formación anti-phishing efectiva debe ser diseñada con conocimiento del modelo cognitivo que está intentando modificar. Las técnicas que trabajan <em>con</em> los sesgos (en lugar de intentar eliminarlos) muestran mayor retención y transferencia a situaciones reales.</p>
+                <p>Presentado como <strong>póster en Neurotransmitiendo 2026</strong>, el congreso más importante de neurociencias cognitivas del ámbito latinoamericano.</p>
+              </div>
+              <div class="result-pills">
+                <span class="result-pill">Congreso Internacional 2026</span>
+                <span class="result-pill">Investigación original</span>
+                <span class="result-pill">Interdisciplinar</span>
+                <span class="result-pill">Póster científico</span>
+              </div>
+            </div>
+            <div class="project-tech-panel">
+              <div class="tech-panel-title">Dimensiones del trabajo</div>
+              <ul class="tech-stack-list">
+                <li><strong>Neurociencias cognitivas</strong> — modelos de procesamiento dual (Sistema 1/2)</li>
+                <li><strong>Ingeniería social</strong> — taxonomía de vectores de phishing modernos</li>
+                <li><strong>Psicología del sesgo</strong> — Kahneman, Thaler, literatura de heurísticas</li>
+                <li><strong>Ciberseguridad defensiva</strong> — implicaciones para diseño de formación</li>
+                <li><strong>Revisión sistemática de literatura</strong> — metodología científica rigurosa</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP RUSO -->
+      <div class="project-item" id="proj-ruso">
+        <div class="project-header" onclick="toggleProject('proj-ruso')">
+          <div class="project-num">V</div>
+          <div class="project-meta">
+            <div class="project-name">App de Aprendizaje de Ruso — Gamificación con IA</div>
+            <div class="project-subtitle">React · Web Speech API · Gamificación · IA conversacional simulada</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">
+            <div>
+              <div class="project-description">
+                <p><strong>El origen:</strong> quería aprender ruso y los métodos disponibles me parecían poco efectivos desde el punto de vista cognitivo. Decidí construir mi propia herramienta, aplicando lo que sé sobre aprendizaje espaciado, motivación intrínseca y retroalimentación inmediata.</p>
+                <p><strong>La arquitectura pedagógica:</strong> sistema de XP y niveles con progresión no lineal (el usuario desbloquea contenido según su rendimiento real, no por tiempo). Retroalimentación de pronunciación en tiempo real usando la <strong>Web Speech API</strong>. Chatbot conversacional simulado para práctica contextual que escala la dificultad automáticamente.</p>
+                <p><strong>La capa técnica:</strong> construida en React con arquitectura de componentes puros, gestión de estado con hooks personalizados, y un motor de repetición espaciada propio (variante del algoritmo SM-2) para optimizar la retención a largo plazo. La app corre completamente en el cliente — sin backend, sin tracking.</p>
+              </div>
+              <div class="result-pills">
+                <span class="result-pill">React</span>
+                <span class="result-pill">Web Speech API</span>
+                <span class="result-pill">Algoritmo SM-2</span>
+                <span class="result-pill">Zero backend</span>
+              </div>
+            </div>
+            <div class="project-tech-panel">
+              <div class="tech-panel-title">Stack técnico</div>
+              <ul class="tech-stack-list">
+                <li><strong>React 18</strong> — arquitectura de componentes y hooks personalizados</li>
+                <li><strong>Web Speech API</strong> — reconocimiento y síntesis de voz en tiempo real</li>
+                <li><strong>Algoritmo SM-2</strong> — repetición espaciada para retención óptima</li>
+                <li><strong>Motor de gamificación</strong> — XP, niveles, insignias y streaks</li>
+                <li><strong>IA conversacional simulada</strong> — chatbot con contexto adaptativo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONSTELLA FEATURE ══ -->
+<section id="constella">
+  <div class="constella-split">
+    <div class="constella-left">
+      <canvas class="constella-stars" id="stars-canvas"></canvas>
+      <div class="sec-kicker">Proyecto estrella · 2026</div>
+      <h2 class="constella-title">CONSTELLA ✦<br><em style="font-style:italic; font-weight:400; font-size:0.75em;">Hacia la autonomía<br>en el espacio</em></h2>
+      <p class="constella-subtitle">Sistema autónomo de planificación para constelaciones multi-satélite. Digital twin, optimización con restricciones y simulación orbital — construido en 72 horas para el INNOVATÓN AI SPACE 2026.</p>
+      <a href="https://constella-milagros-calder-n.vercel.app/" target="_blank" class="btn-constella">
+        Explorar demo en vivo ✦
+      </a>
+    </div>
+    <div class="constella-right">
+      <h3>Arquitectura del sistema</h3>
+      <div class="arch-item">
+        <div class="arch-dot"></div>
+        <div>
+          <div class="arch-label">Digital Twin Layer</div>
+          <div class="arch-desc">Réplica virtual de cada satélite con estado orbital en tiempo real. Sincronización continua con datos TLE actuales via Skyfield.</div>
+        </div>
+      </div>
+      <div class="arch-item">
+        <div class="arch-dot"></div>
+        <div>
+          <div class="arch-label">Planning Engine (OR-Tools CP-SAT)</div>
+          <div class="arch-desc">Optimizador de satisfacción de restricciones que asigna misiones respetando ventanas de visibilidad, energía, prioridades y dependencias temporales.</div>
+        </div>
+      </div>
+      <div class="arch-item">
+        <div class="arch-dot"></div>
+        <div>
+          <div class="arch-label">Adaptive Scheduler</div>
+          <div class="arch-desc">El planificador refina su modelo de restricciones con cada ciclo completado, ganando precisión progresiva en escenarios recurrentes.</div>
+        </div>
+      </div>
+      <div class="arch-item">
+        <div class="arch-dot"></div>
+        <div>
+          <div class="arch-label">Visualization Interface</div>
+          <div class="arch-desc">Dashboard React con visualización de órbitas, estado de misiones y métricas de eficiencia de la constelación en tiempo real.</div>
+        </div>
+      </div>
+      <div class="constella-variants">
+        <span class="variant-pill">CONSTELLA·MAR — Oceanografía</span>
+        <span class="variant-pill">PLUMA — Metano</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AWARDS ══ -->
+<section id="awards" class="section">
+  <div class="section-inner">
+    <div class="sec-kicker reveal">Reconocimientos</div>
+    <h2 class="sec-h2 reveal">Logros &<br><em style="font-style:italic; color:var(--purple);">distinciones</em></h2>
+    <p class="sec-intro reveal">Una selección de los hitos que marcaron el camino.</p>
+
+    <table class="awards-table reveal">
+      <tbody>
+        <tr>
+          <td class="td-medal">🏛️</td>
+          <td class="td-year">2026</td>
+          <td><div class="td-title">Distinción La Delfina 2026</div><div class="td-sub">Fundación La Delfina · Paraná, Entre Ríos · Por labor, logros y aporte a la comunidad</div></td>
+          <td class="td-tag">Argentina</td>
+        </tr>
+        <tr class="clickable" onclick="openModal('modal-constella-award')">
+          <td class="td-medal">🛰️</td>
+          <td class="td-year">2026</td>
+          <td><div class="td-title">INNOVATÓN AI SPACE 2026 — Proyecto CONSTELLA</div><div class="td-sub">Participación independiente · Sistema autónomo multi-satélite · Ver detalles ↗</div></td>
+          <td class="td-tag">Espacio</td>
+        </tr>
+        <tr class="clickable" onclick="openModal('modal-neuro-award')">
+          <td class="td-medal">🧠</td>
+          <td class="td-year">2026</td>
+          <td><div class="td-title">II Congreso Latinoamericano de Neurociencias Cognitivas</div><div class="td-sub">Póster: Sesgos cognitivos en phishing · Neurotransmitiendo 2026 · Ver detalles ↗</div></td>
+          <td class="td-tag">Neurociencia</td>
+        </tr>
+        <tr>
+          <td class="td-medal">🥇</td>
+          <td class="td-year">2025</td>
+          <td><div class="td-title">1.er Lugar · Rally Latinoamericano de Innovación</div><div class="td-sub">Categoría Innovación · Universidad Andrés Bello · Santiago, Chile</div></td>
+          <td class="td-tag">Chile</td>
+        </tr>
+        <tr>
+          <td class="td-medal">🏆</td>
+          <td class="td-year">2025</td>
+          <td><div class="td-title">1.er Lugar · "Una Canción con IA" — CUJAE Cuba</div><div class="td-sub">Jornada Científica Estudiantil · Facultad de Ingeniería Informática · La Habana</div></td>
+          <td class="td-tag">Cuba</td>
+        </tr>
+        <tr>
+          <td class="td-medal">📄</td>
+          <td class="td-year">2025</td>
+          <td><div class="td-title">Publicación · Publicient 2025 — ECIMED Cuba</div><div class="td-sub">"Ciencia Abierta e IA en Salud: hacia un conocimiento transparente" · X Taller Nacional</div></td>
+          <td class="td-tag">Publicación</td>
+        </tr>
+        <tr>
+          <td class="td-medal">📢</td>
+          <td class="td-year">2025</td>
+          <td><div class="td-title">Ponente · V Convención Científica Internacional</div><div class="td-sub">Expoferia · Universidad de Las Tunas · Cuba</div></td>
+          <td class="td-tag">Cuba</td>
+        </tr>
+        <tr>
+          <td class="td-medal">🏅</td>
+          <td class="td-year">2024</td>
+          <td><div class="td-title">3.er Lugar · Rally Latinoamericano de Innovación</div><div class="td-sub">Categoría Impacto Social · Sede Paraná · Argentina</div></td>
+          <td class="td-tag">Argentina</td>
+        </tr>
+        <tr>
+          <td class="td-medal">🎙️</td>
+          <td class="td-year">2026</td>
+          <td><div class="td-title">Ponente · UbuConLA — Open Source en Robótica</div><div class="td-sub">"Robótica Abierta e IA: soluciones reales con Ubuntu y Hardware Libre" · Presentación online</div></td>
+          <td class="td-tag">Open Source</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ LANGUAGES ══ -->
+<section id="languages">
+  <div class="section-inner">
+    <div class="sec-kicker reveal">Lenguas & culturas</div>
+    <h2 class="sec-h2 reveal">Hablo el<br><em style="font-style:italic; color:var(--purple-lt);">mundo</em></h2>
+    <p class="sec-intro reveal">Cada idioma es una arquitectura distinta del pensamiento. Aprender uno nuevo no es solo adquirir vocabulario — es acceder a una forma diferente de razonar.</p>
+
+    <div class="lang-grid reveal">
+      <div class="lang-card">
+        <div class="lang-flag">🇦🇷</div>
+        <div class="lang-name">Español</div>
+        <div class="lang-level">Nativo</div>
+        <div class="lang-note">Con él pienso, enseño, presento y construyo Latinoamérica. La lengua de mi identidad y mi ciencia.</div>
+        <div class="lang-bar-wrap"><div class="lang-bar" style="width:100%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">🇬🇧</div>
+        <div class="lang-name">English</div>
+        <div class="lang-level">Advanced</div>
+        <div class="lang-note">The language of global science and technology. I publish, present and collaborate internationally in English with confidence.</div>
+        <div class="lang-bar-wrap"><div class="lang-bar" style="width:88%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">🇧🇷</div>
+        <div class="lang-name">Português</div>
+        <div class="lang-level">Intermediário</div>
+        <div class="lang-note">A língua dos vizinhos e parceiros. Conexão direta com a comunidade científica brasileira e a riqueza cultural lusófona.</div>
+        <div class="lang-bar-wrap"><div class="lang-bar" style="width:65%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">🇷🇺</div>
+        <div class="lang-name">Русский</div>
+        <div class="lang-level">Начальный</div>
+        <div class="lang-note">Una aventura en curso. El ruso me acerca a una de las tradiciones científicas más profundas del mundo — y a un sistema de escritura que me fascina.</div>
+        <div class="lang-bar-wrap"><div class="lang-bar" style="width:22%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" style="background:var(--lavender); padding:6rem 4rem; text-align:center;">
+  <div class="section-inner" style="max-width:600px;">
+    <div class="sec-kicker reveal" style="justify-content:center;">Conectemos</div>
+    <h2 class="sec-h2 reveal" style="text-align:center;">¿Tenés algo<br><em style="font-style:italic;color:var(--purple);">en mente?</em></h2>
+    <p class="reveal" style="font-size:1rem;line-height:1.8;color:var(--ink-60);margin-bottom:2.5rem;font-weight:300;">
+      Estoy siempre abierta a conversaciones sobre proyectos de electrónica, IA, espacio, educación o cualquier idea que viva en la intersección de disciplinas. Mi LinkedIn es la mejor puerta de entrada.
+    </p>
+    <a href="https://www.linkedin.com/in/mariadelosmilagros" target="_blank" class="reveal" style="
+      display:inline-flex; align-items:center; gap:0.75rem;
+      background:var(--purple); color:white;
+      padding:1rem 2.4rem; border-radius:50px;
+      font-size:0.85rem; font-weight:600; letter-spacing:0.1em;
+      text-transform:uppercase; text-decoration:none;
+      box-shadow:0 8px 30px rgba(107,79,160,0.3);
+      transition:transform 0.25s, box-shadow 0.25s;
+    " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(107,79,160,0.45)'"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 8px 30px rgba(107,79,160,0.3)'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Ver perfil en LinkedIn ✦
+    </a>
+    <p class="reveal" style="font-size:0.75rem;color:var(--ink-40);margin-top:1.5rem;letter-spacing:0.05em;">
+      Paraná, Entre Ríos, Argentina · Abierta a oportunidades globales
+    </p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Milagros Calderón</div>
+      <div class="footer-brand-desc">Ingeniera electrónica, investigadora e insaciablemente curiosa. Construyo sistemas en la intersección de la electrónica, la inteligencia artificial y el espacio — desde Paraná hacia el mundo.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navegación</div>
+      <ul class="footer-col-links">
+        <li><a href="#story">Mi historia</a></li>
+        <li><a href="#expertise">Expertise técnico</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#awards">Logros</a></li>
+        <li><a href="#languages">Idiomas</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Proyectos destacados</div>
+      <ul class="footer-col-links">
+        <li><a href="https://constella-milagros-calder-n.vercel.app/" target="_blank">CONSTELLA ✦</a></li>
+        <li><a href="#proj-alerta" onclick="openProject('proj-alerta')">AlertaCuba</a></li>
+        <li><a href="#proj-nfl" onclick="openProject('proj-nfl')">NFL Draft ML</a></li>
+        <li><a href="#proj-neuro" onclick="openProject('proj-neuro')">Neurociencia & Phishing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 María de los Milagros Esther Calderón · UTN Facultad Regional Paraná</div>
+    <div class="footer-location">Paraná, Entre Ríos, Argentina ✦</div>
+  </div>
+</footer>
+
+<!-- ══ MODALS ══ -->
+<div class="modal-backdrop" id="modal-constella-award" onclick="closeModal('modal-constella-award')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close-btn" onclick="closeModal('modal-constella-award')">✕</button>
+    <p class="modal-kicker">INNOVATÓN AI SPACE 2026 · Junio 17–19</p>
+    <h2 class="modal-h">CONSTELLA: autonomía inteligente para constelaciones multi-satélite</h2>
+    <div class="modal-content">
+      <p>Participé de manera <strong>independiente</strong> en el INNOVATÓN AI SPACE 2026, desarrollando CONSTELLA en 72 horas intensivas de hackathon.</p>
+      <p>El sistema resuelve uno de los problemas más complejos de la era espacial: cómo coordinar una flota de satélites con objetivos cambiantes, restricciones energéticas y ventanas temporales que no esperan. La solución combina un <strong>gemelo digital</strong> de cada satélite, simulación orbital en tiempo real con Skyfield, y un optimizador de restricciones CP-SAT de Google OR-Tools.</p>
+      <p>Durante el hackathon, el proyecto evolucionó en tres tracks: el sistema base (CONSTELLA), una variante para monitoreo oceanográfico distribuido (<strong>CONSTELLA·MAR</strong>) y una para detección y cuantificación de metano atmosférico desde el espacio (<strong>PLUMA</strong>).</p>
+      <p><a href="https://constella-milagros-calder-n.vercel.app/" target="_blank" style="color:var(--purple); font-weight:500;">→ Ver demo interactiva en Vercel</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-neuro-award" onclick="closeModal('modal-neuro-award')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close-btn" onclick="closeModal('modal-neuro-award')">✕</button>
+    <p class="modal-kicker">II Congreso Latinoamericano de Neurociencias Cognitivas · 2026</p>
+    <h2 class="modal-h">Sesgos cognitivos en ataques de phishing</h2>
+    <div class="modal-content">
+      <p>Presentado en <strong>Neurotransmitiendo 2026</strong>, este trabajo investiga por qué el phishing sigue siendo el vector de ataque más efectivo a pesar de décadas de concientización: la respuesta está en la neurobiología del juicio y la toma de decisiones.</p>
+      <p>El trabajo mapea sesgos cognitivos específicos — <strong>sesgo de autoridad, urgencia percibida, reciprocidad, heurística de disponibilidad</strong> — con los vectores técnicos de ingeniería social que los explotan sistemáticamente.</p>
+      <p>La conclusión central: diseñar defensa cognitiva efectiva requiere entender cómo funciona el cerebro bajo presión, no cómo idealmente debería funcionar. Los programas de formación que trabajan <em>con</em> los mecanismos cognitivos muestran mejor retención que los que intentan sobreescribirlos.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
+<script>
+// ── HERO KAWAII SPACE SCENE ──────────────────────────────────
+(function() {
+  const canvas = document.getElementById('hero-stars-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, t = 0;
+
+  // ── Twinkling stars background
+  let stars = [];
+  function mkStar() {
+    return {
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.4 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.02 + 0.008,
+      color: Math.random() < 0.5 ? [196,173,239] : Math.random() < 0.5 ? [247,232,240] : [255,255,255],
+      is4: Math.random() < 0.12,
+    };
+  }
+
+  // ── Planets (kawaii pastel spheres that float gently)
+  const PLANETS = [
+    { ox:0.78, oy:0.18, r:28, c1:'#E8D0F5', c2:'#C4ADEF', ring:true,  ringColor:'rgba(196,173,239,0.35)', floatAmp:6, floatSpeed:0.4, floatOff:0   },
+    { ox:0.12, oy:0.72, r:16, c1:'#F9E4F2', c2:'#E8ADCF', ring:false, ringColor:'',                      floatAmp:4, floatSpeed:0.55,floatOff:1.2 },
+    { ox:0.88, oy:0.65, r:12, c1:'#D5EFF9', c2:'#AACFE8', ring:false, ringColor:'',                      floatAmp:5, floatSpeed:0.35,floatOff:2.1 },
+  ];
+
+  // ── Orbital moons around the big planet
+  const MOONS = [
+    { planet:0, dist:52, r:5,  speed:0.9,  off:0,    c:'#F7E8F0' },
+    { planet:0, dist:68, r:3.5,speed:0.55, off:2.1,  c:'#EDE5F7' },
+  ];
+
+  // ── Comets (streak across once, then reset)
+  function mkComet() {
+    return {
+      x: -80, y: Math.random() * H * 0.6,
+      vx: Math.random() * 2.5 + 2,
+      vy: Math.random() * 0.8 + 0.2,
+      len: Math.random() * 80 + 60,
+      alpha: Math.random() * 0.45 + 0.2,
+      r: Math.random() * 1.5 + 0.8,
+      active: false,
+      timer: Math.random() * 280,
+    };
+  }
+  const COMETS = [mkComet(), mkComet(), mkComet()];
+
+  // ── Mini satellite (cute ✦ orbiting slowly across)
+  const SAT = { x:0, y:0, orbitX:0, orbitY:0, angle:0, speed:0.006, trail:[] };
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    stars = Array.from({ length: 90 }, mkStar);
+    SAT.orbitX = W * 0.5; SAT.orbitY = H * 0.45;
+  }
+
+  // ─ Draw helpers ─────────────────────────
+  function drawPlanet(p, now) {
+    const cx = p.ox * W;
+    const cy = p.oy * H + Math.sin(now * p.floatSpeed + p.floatOff) * p.floatAmp;
+
+    // Ring behind
+    if (p.ring) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(1, 0.32);
+      ctx.beginPath();
+      ctx.arc(0, 0, p.r * 1.7, 0, Math.PI * 2);
+      ctx.strokeStyle = p.ringColor;
+      ctx.lineWidth = p.r * 0.38;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Sphere gradient
+    const g = ctx.createRadialGradient(cx - p.r*0.3, cy - p.r*0.35, p.r*0.1, cx, cy, p.r);
+    g.addColorStop(0, p.c1);
+    g.addColorStop(1, p.c2);
+    ctx.beginPath();
+    ctx.arc(cx, cy, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    // Soft cheek blush (kawaii!)
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    const blush = ctx.createRadialGradient(cx + p.r*0.38, cy + p.r*0.28, 0, cx + p.r*0.38, cy + p.r*0.28, p.r*0.38);
+    blush.addColorStop(0, '#F7C5D8');
+    blush.addColorStop(1, 'transparent');
+    ctx.fillStyle = blush;
+    ctx.beginPath();
+    ctx.arc(cx + p.r*0.38, cy + p.r*0.28, p.r*0.38, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    // Specular highlight
+    ctx.save();
+    ctx.globalAlpha = 0.55;
+    const hl = ctx.createRadialGradient(cx - p.r*0.28, cy - p.r*0.3, 0, cx - p.r*0.28, cy - p.r*0.3, p.r*0.45);
+    hl.addColorStop(0, 'rgba(255,255,255,0.9)');
+    hl.addColorStop(1, 'transparent');
+    ctx.fillStyle = hl;
+    ctx.beginPath();
+    ctx.arc(cx - p.r*0.28, cy - p.r*0.3, p.r*0.45, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    return { cx, cy };
+  }
+
+  function drawMoon(moon, planetPos, now) {
+    const base = PLANETS[moon.planet];
+    const floatY = Math.sin(now * base.floatSpeed + base.floatOff) * base.floatAmp;
+    const bx = base.ox * W;
+    const by = base.oy * H + floatY;
+    const angle = now * moon.speed + moon.off;
+    const mx = bx + Math.cos(angle) * moon.dist;
+    const my = by + Math.sin(angle) * moon.dist * 0.38; // squished orbit
+
+    const g = ctx.createRadialGradient(mx - moon.r*0.3, my - moon.r*0.3, 0, mx, my, moon.r);
+    g.addColorStop(0, '#FFFFFF');
+    g.addColorStop(1, moon.c);
+    ctx.beginPath();
+    ctx.arc(mx, my, moon.r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
+
+  function drawComet(c) {
+    if (!c.active) {
+      c.timer--;
+      if (c.timer <= 0) { c.active = true; c.x = -80; c.y = Math.random() * H * 0.55; }
+      return;
+    }
+    c.x += c.vx; c.y += c.vy;
+    if (c.x > W + 120) { c.active = false; c.timer = Math.floor(Math.random() * 320 + 120); }
+
+    const grad = ctx.createLinearGradient(c.x - c.len, c.y, c.x, c.y);
+    grad.addColorStop(0, 'rgba(196,173,239,0)');
+    grad.addColorStop(0.6, `rgba(228,210,248,${c.alpha * 0.5})`);
+    grad.addColorStop(1, `rgba(255,255,255,${c.alpha})`);
+    ctx.beginPath();
+    ctx.moveTo(c.x - c.len, c.y);
+    ctx.lineTo(c.x, c.y);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = c.r;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Head glow
+    const hg = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r * 3);
+    hg.addColorStop(0, `rgba(255,255,255,${c.alpha})`);
+    hg.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, c.r * 3, 0, Math.PI * 2);
+    ctx.fillStyle = hg;
+    ctx.fill();
+  }
+
+  function drawSatellite(now) {
+    // Wide lazy ellipse path around the hero
+    const rx = W * 0.38, ry = H * 0.22;
+    const cx = W * 0.52, cy = H * 0.48;
+    SAT.angle += SAT.speed;
+    const sx = cx + Math.cos(SAT.angle) * rx;
+    const sy = cy + Math.sin(SAT.angle) * ry;
+
+    // Trail
+    SAT.trail.push({ x: sx, y: sy });
+    if (SAT.trail.length > 28) SAT.trail.shift();
+    SAT.trail.forEach((pt, i) => {
+      const a = (i / SAT.trail.length) * 0.18;
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 0.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(196,173,239,${a})`;
+      ctx.fill();
+    });
+
+    // Satellite body (tiny kawaii ✦)
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.rotate(SAT.angle + Math.PI / 4);
+    // Body
+    ctx.fillStyle = '#C4ADEF';
+    ctx.fillRect(-4, -2, 8, 4);
+    // Solar panels
+    ctx.fillStyle = '#9B7BC8';
+    ctx.fillRect(-9, -1, 4, 2);
+    ctx.fillRect(5,  -1, 4, 2);
+    // Blink light
+    const blink = 0.5 + 0.5 * Math.sin(now * 4);
+    ctx.beginPath();
+    ctx.arc(0, 0, 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,220,230,${blink})`;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function draw4pt(x, y, r, a) {
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath(); ctx.ellipse(x, y, r*2.2, r*0.35, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(x, y, r*0.35, r*2.2, 0, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, r*0.7, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  // ─ Main loop ─────────────────────────────
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const now = performance.now() * 0.001;
+
+    // 1. Twinkling star field
+    stars.forEach(s => {
+      const pulse = 0.4 + 0.6 * Math.sin(now * s.speed * 60 + s.phase);
+      const a = 0.15 + 0.45 * pulse;
+      const col = s.color.join(',');
+      if (s.is4) {
+        draw4pt(s.x, s.y, s.r, a);
+      } else {
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 2);
+        g.addColorStop(0, `rgba(${col},${a})`);
+        g.addColorStop(1, `rgba(${col},0)`);
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 2, 0, Math.PI*2);
+        ctx.fillStyle = g; ctx.fill();
+      }
+    });
+
+    // 2. Comets
+    COMETS.forEach(c => drawComet(c));
+
+    // 3. Planets (behind moons)
+    const planetPositions = PLANETS.map(p => drawPlanet(p, now));
+
+    // 4. Moons
+    MOONS.forEach(m => drawMoon(m, planetPositions, now));
+
+    // 5. Satellite
+    drawSatellite(now);
+
+    t++;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+
+// ── CONSTELLA SECTION STARS ──────────────────────────────────
+(function() {
+  const canvas = document.getElementById('stars-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    stars = Array.from({length: 90}, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.2 + 0.2,
+      a: Math.random() * 0.6 + 0.15,
+      t: Math.random() * Math.PI * 2
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+      s.t += 0.015;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${s.a * (0.5 + 0.5 * Math.sin(s.t))})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+// ── KAWAII FLOATING ELEMENTS SPAWNER ─────────────────────────
+(function() {
+  const container = document.getElementById('kawaii-container');
+  if (!container) return;
+
+  const EMOJIS = [
+    '✦','✦','✦','✦','⋆','⋆','⋆',   // stars (most frequent)
+    '✿','✿','❀',                      // flowers
+    '◦','·','∘',                       // tiny dots
+    '♡','♡',                           // hearts
+    '🌙','🌙',                         // moons
+    '💫','💫',                         // shooting stars
+    '🪐',                              // one rare planet
+  ];
+
+  // Pre-spawn initial batch
+  for (let i = 0; i < 22; i++) spawnOne(true);
+  // Then spawn continuously
+  setInterval(() => spawnOne(false), 600);
+
+  function spawnOne(initial) {
+    const el = document.createElement('span');
+    el.className = 'kawaii-float';
+    el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+
+    const size   = Math.random() * 14 + 9;          // 9–23px
+    const left   = Math.random() * 100;              // % across
+    const dur1   = Math.random() * 14 + 10;          // 10–24s drift
+    const dur2   = Math.random() * 4  + 3;           // 3–7s sway
+    const delay  = initial ? -(Math.random() * dur1) : 0;
+    const op     = Math.random() * 0.45 + 0.15;      // 0.15–0.6 opacity max
+
+    Object.assign(el.style, {
+      left:      left + '%',
+      bottom:    '-40px',
+      fontSize:  size + 'px',
+      opacity:   '0',
+      animationDuration:  `${dur1}s, ${dur2}s`,
+      animationDelay:     `${delay}s, ${delay}s`,
+      animationTimingFunction: 'linear, ease-in-out',
+      animationIterationCount: 'infinite, infinite',
+      color: Math.random() < 0.5 ? '#C4ADEF'
+           : Math.random() < 0.5 ? '#F2C4DE'
+           : '#FFFFFF',
+      filter: 'drop-shadow(0 0 3px rgba(196,173,239,0.5))',
+    });
+
+    container.appendChild(el);
+
+    // Clean up after a while to avoid DOM bloat
+    if (!initial) {
+      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, (dur1 + 2) * 1000);
+    }
+  }
+})();
+
+// ── PROJECT ACCORDION ────────────────────────────────────────
+function toggleProject(id) {
+  const item = document.getElementById(id);
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.project-item').forEach(p => p.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+  if (!isOpen) setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+}
+
+function openProject(id) {
+  document.getElementById(id).classList.add('open');
+  setTimeout(() => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+// ── MODALS ───────────────────────────────────────────────────
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
